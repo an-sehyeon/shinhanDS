@@ -63,6 +63,14 @@ git config --global core.quotepath false
 -> 최상단에 .git이 있는데 하위폴더에 .git이 존재할때 발생, 하위폴더에 .git 삭제후 다시 실행
 ===================================================================
 
+===================================================================
+-- ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 에러 발생시
+(로컬 브랜치와 원격 브랜치가 서로 다른 히스토리를 가지고 있어서 충돌)
+-> pull 후 push 하기 
+git pull origin main --rebase
+git push origin main
+===================================================================
 
 
 
