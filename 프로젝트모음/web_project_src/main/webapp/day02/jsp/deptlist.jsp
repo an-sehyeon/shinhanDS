@@ -25,7 +25,7 @@ List<DeptDTO> deptlist = dService.selectAll();
 <body>
 	<h1>부서목록 조회</h1>
 	<hr>
-	<button onclick="location.href='/webshop/day2/dept.html'">돌아가기</button>
+	<button onclick="location.href='/web/day02/dept.html'">돌아가기</button>
 	<table>
 		<thead>
 			<tr>

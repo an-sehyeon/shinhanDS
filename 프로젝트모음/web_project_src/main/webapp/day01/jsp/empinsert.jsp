@@ -27,8 +27,38 @@ List<JobDTO> joblist = new JobDAO().getAllJobs();
 		width: 170px;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$("#btn1").on("click",f5);
+});
+function f5(){
+	var arr = [	{name:"네이버", link:"http://www.naver.com"},
+				{name:"다음", link:"http://www.daum.com"},
+				{name:"구글", link:"http://www.google.com"}
+		];
+	// JSP문법 : \${aa}....aa에 저장된 값을 출력 getAttribute()
+	// back tick : \${bb}....bb에 저장된 값을 출력, 서버해석막기
+	var bb = 200;
+	var s =`--------------------${bb}---------------------`;
+	console.log(s);
+	var ss =`--------------------\${bb}---------------------`;
+	console.log(ss);
+	
+	var str ="<ul>";
+	$.each(arr, function(index, item){
+		str += `<li><a href="\${item.link}">\${item.name}</a></li>`;
+	});
+	$("#here").html(str + "</ul>");
+};
+
+</script>
+
 </head>
 <body>
+	<button id="btn1">jQuery연습</button>
+	<div id="here">여기
+	</div>
 	<h1>직원 입력</h1>
 	<hr>
 	<form action="empupdate.jsp">
