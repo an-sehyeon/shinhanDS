@@ -4,3 +4,4 @@
 java -cp "crudproject.jar;work/library/*" com.shinhan.common.FrontController
 
 erdcloud = subscription_nocount
+
