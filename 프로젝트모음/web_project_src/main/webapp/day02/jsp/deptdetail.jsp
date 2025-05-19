@@ -20,7 +20,7 @@ DeptDTO dept = dService.selectById(deptid);
 <body>
 	<h1><%=dept.getDepartment_name()%> 부서 상세보기</h1>
 	<hr>
-	<form action="deptupdate.jsp">
+	<form action="/web/day02/jsp/deptupdate.jsp">
 		<input type="hidden" name="job" value="update"><br>
 		<fieldset>
 			<label>부서코드: </label><input id="dept_id_input" readonly="readonly" type="number" name="department_id" value="<%=dept.getDepartment_id()%>"> <br>
@@ -29,7 +29,7 @@ DeptDTO dept = dService.selectById(deptid);
 			<label>지역코드: </label><input name="location_id" value="<%=dept.getLocation_id()%>"> <br>
 		</fieldset>
 		<fieldset>
-			<input type="button" onclick="location.href='/webshop/day2/dept.html'" value="확인">
+			<input type="button" onclick="location.href='/web/day02/dept.html'" value="확인">
 			<input type="submit" value="수정">
 		</fieldset>
 	</form>

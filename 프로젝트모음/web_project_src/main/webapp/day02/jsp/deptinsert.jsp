@@ -52,7 +52,7 @@ function call(){
 	<h1>부서입력</h1>
 	<hr>
 	<!-- onsubmit="return call();" -->
-	<form id="myfrm" action="deptupdate.jsp">
+	<form id="myfrm" action="/web/day02/jsp/deptupdate.jsp">
 		<input type="hidden" name="job" value="insert">
 		<fieldset>
 			<label>부서코드: </label><input type="number" name="department_id" autofocus="autofocus"> <br>
@@ -64,7 +64,7 @@ function call(){
 		<fieldset>
 			<input type="submit" value="입력">
 			<input type="reset" value="초기화">
-			<input type="button" onclick="location.href='/webshop/day2/dept.html'" value="취소">
+			<input type="button" onclick="location.href='/web/day02/dept.html'" value="취소">
 		</fieldset>
 	</form>
 </body>

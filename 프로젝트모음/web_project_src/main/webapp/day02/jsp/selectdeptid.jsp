@@ -32,7 +32,7 @@ else if(job.equals("delete")) job_name = "삭제";
 				%>
 			</select>
 			<input type="submit" value="<%=job_name%>">
-			<input type="button" onclick="location.href='/webshop/day2/dept.html'" value="취소">
+			<input type="button" onclick="location.href='/web/day02/dept.html'" value="취소">
 		</fieldset>
 	</form>
 </body>

@@ -20,7 +20,7 @@ DeptDTO dept = dService.selectById(deptid);
 <body>
 	<h1><%=dept.getDepartment_name()%> 부서 삭제</h1>
 	<hr>
-	<form action="deptupdate.jsp">
+	<form action="/web/day02/jsp/deptupdate.jsp">
 		<input type="hidden" name="job" value="delete">
 		<fieldset>
 			<label>부서코드: </label><input readonly="readonly" type="number" name="department_id" value="<%=dept.getDepartment_id()%>"> <br>
@@ -30,7 +30,7 @@ DeptDTO dept = dService.selectById(deptid);
 		</fieldset>
 		<fieldset>
 			<input id="delete_button" type="submit" value="삭제">
-			<input type="button" onclick="location.href='/webshop/day2/dept.html'" value="취소">
+			<input type="button" onclick="location.href='/web/day02/dept.html'" value="취소">
 		</fieldset>
 	</form>
 </body>

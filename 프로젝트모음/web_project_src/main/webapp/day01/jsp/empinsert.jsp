@@ -28,6 +28,7 @@ List<JobDTO> joblist = new JobDAO().getAllJobs();
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src ="empinsert.js"></script>
 <script>
 $(function(){
 	$("#btn1").on("click",f5);
@@ -59,9 +60,11 @@ function f5(){
 	<button id="btn1">jQuery연습</button>
 	<div id="here">여기
 	</div>
-	<h1>직원 입력</h1>
+	<h1>직원등록</h1>
+	<button id="btnAjax">직원입력(Ajax)</button>
+	
 	<hr>
-	<form action="empupdate.jsp">
+	<form action="/web/day01/jsp/empupdate.jsp">
 		<input type="hidden" name="job" value="insert">
 		<fieldset>
 			<label>직원번호: </label><input type="number" name="employee_id" autofocus="autofocus"><br>
@@ -97,7 +100,7 @@ function f5(){
 		<fieldset>
 			<input type="submit" value="입력">
 			<input type="reset" value="초기화">
-			<input type="button" onclick="location.href='/webshop/day1/emp.html'" value="취소">
+			<input type="button" onclick="location.href='/web/day01/emp.html'" value="돌아가기">
 		</fieldset>
 	</form>
 </body>

@@ -79,7 +79,7 @@ if(job.equals("insert")) {
 		</tbody>
 	</table>
 	<br>
-	<button onclick="location.href='deptlist.jsp'">목록보기</button>
+	<button onclick="location.href='/web/day02/jsp/deptlist.jsp'">목록보기</button>
 	
 </body>
 </html>

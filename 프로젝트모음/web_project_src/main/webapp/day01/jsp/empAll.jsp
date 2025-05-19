@@ -13,7 +13,21 @@ List<EmpDTO> emplist = eService.selectAll();
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="empAll.js"></script>
+<script>
+$(()=>{
+	// ()=> {} 화살표함수에서 this는 window, bind()함수로 object를 bind()하여 this설정가능
+	$("#search").on("keyup",function(){
+		var inputData = $(this).val();
+		console.log(inputData);
+		$("tbody tr").hide();
+		$(`td:contains(\${inputData})`).parent().show();		// <tr><td>aa</td></tr>
+	});
+	
+	
+});
+</script>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <title>emp_all_list</title>
 <style>
@@ -57,6 +71,9 @@ List<EmpDTO> emplist = eService.selectAll();
 	급여: <input type="number" id="salaryInput">이상
 	<button id="selectbtn">직원찾기(스타일변경)</button>
 	<button id="resetbtn">초기화</button>
+	<br>
+	찾을문자 <input type="text" id="search">
+	
 	<br><br>
 	<hr>
 	<div id="s_list"></div>
