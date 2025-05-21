@@ -28,4 +28,9 @@ public class DateUtil {
 		
 		return new java.sql.Date(d.getTime());
 	}
+
+	public static java.sql.Date converToSQLDate(String str){
+		
+		return converToSQLDate(converToDate(str));
+	}
 }

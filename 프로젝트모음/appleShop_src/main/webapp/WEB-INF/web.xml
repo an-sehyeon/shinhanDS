@@ -11,21 +11,52 @@
   </welcome-file-list>
   
   
+  <!-- 웹어플리케이션에 파라메터 전달 -->
+  <context-param>
+  	<param-name>DBName</param-name>
+  	<param-value>XE</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>userId</param-name>
+  	<param-value>hr</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>userPass</param-name>
+  	<param-value>hr</param-value>
+  </context-param>
+  
+  
   <!-- 서블릿 등록하기 -->
   <!-- 1.서블릿 class에서 @WebServlet -->
   <!-- 2.web.xml에서 등록 -->
+<!--   <servlet>
+  	<servlet-name>getting</servlet-name>
+  	<servlet-class>com.shinhan.controller3.GetServlet</servlet-class>
+  	<init-param>
+  		<param-name>lunch</param-name>
+  		<param-value>포케</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>getting</servlet-name>
+  	<url-pattern>/get</url-pattern>
+  </servlet-mapping> 
   <servlet>
   	<servlet-name>myServlet1</servlet-name>
   	<servlet-class>com.shinhan.controller.FirstServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
+  	<load-on-startup>2</load-on-startup>
+  </servlet>  -->
+
+
+<!--   <servlet-mapping>
   	<servlet-name>myServlet1</servlet-name>
   	<url-pattern>/first3</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>myServlet1</servlet-name>
   	<url-pattern>/first</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
   
   

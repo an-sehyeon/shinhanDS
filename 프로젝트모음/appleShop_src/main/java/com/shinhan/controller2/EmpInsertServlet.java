@@ -2,7 +2,10 @@ package com.shinhan.controller2;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,17 +24,28 @@ import job.JobDTO;
 /**
  * Servlet implementation class EmpDetailList
  */
-@WebServlet("/emp/empdetail.do")
-public class EmpDetailServlet extends HttpServlet {
+@WebServlet("/emp/empinsert.do")
+public class EmpInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		int emp_id = Integer.parseInt(request.getParameter("empid"));
-
 		EmpService eService = new EmpService();
-		EmpDTO emp = eService.selectById(emp_id);
+		List<EmpDTO> emplist = eService.selectAll();
+		
+		// manager_id 중복제거
+		Set<Integer> managerIdSet = new LinkedHashSet<Integer>();		// 순서 유지하고 중복 제거
+		for(EmpDTO emp : emplist) {
+			Integer managerId = emp.getManager_id();
+			if(managerId != null) {
+				managerIdSet.add(managerId);
+			}
+		}
+		
+		// 중복 제거된 manager_id를 리스트로 변환
+		List<Integer> uniqueManagerId = new ArrayList<>(managerIdSet);
+		
 
 		DeptService dService = new DeptService();
 		List<DeptDTO> deptlist = dService.selectAll();
@@ -39,18 +53,11 @@ public class EmpDetailServlet extends HttpServlet {
 		JobDAO jobDAO = new JobDAO();
 		List<JobDTO> joblist = jobDAO.getAllJobs();
 
-		/*
-		 * data를 바인딩
-		 * 1. request : 요청을하고 응답 후 사라진다.
-		 * 2. session : 브라우저에서 여러 요청을 하는동안 유지하기 위함, 브라우저 닫으면 사라짐.
-		 * 3. application : 서버가 종료되면 사라짐
-		 * 
-		 * */
-		request.setAttribute("emp", emp);
+		request.setAttribute("managerId", uniqueManagerId);
 		request.setAttribute("deptlist", deptlist);
 		request.setAttribute("joblist", joblist);
 
-		request.getRequestDispatcher("empdetail.jsp").forward(request, response);
+		request.getRequestDispatcher("empinsert.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -60,12 +67,11 @@ public class EmpDetailServlet extends HttpServlet {
 		
 		EmpService empService = new EmpService();
 		EmpDTO emp = makeEmp(request);
-		empService.empUpdate(emp);
+		empService.empInsert(emp);
 		
 		// 주소창바꾸기 : front에서는 location.href=''
 		
-		// 본래 요청은 /emp/empdetail.do
-		// 요청 재지정하기...> 브라우저의 주소창이 변경
+		// 요청 재지정하기
 		response.sendRedirect("emplist.do");
 	}
 

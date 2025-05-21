@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<!-- request.setAttribute("cpath","/appleShop") -->
+<c:set var="cpath" value="${pageContext.servletContext.contextPath}" />   
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +16,7 @@
 <body>
 	<h1>${emp.employee_id}번 직원 상세보기</h1>
 	<hr>
-	<form action="empupdate.jsp" method="post">
+	<form action="${cpath}/emp/empdetail.do" method="post">
 		<input type="hidden" name="job" value="update">
 		<fieldset>
 			<label>직원번호: </label><input id="emp_id_input" readonly="readonly" type="number" name="employee_id" value="${emp.employee_id}"><br>
@@ -41,7 +44,7 @@
 			<label>입사일: </label><input type="date" name="hire_date" value="${emp.hire_date}"><br>
 		</fieldset>
 		<fieldset>
-			<input type="button" onclick="location.href='/webshop/day1/emp.html'" value="확인">
+			<input type="button" onclick="location.href='${cpath}/emp/emplist.do'" value="확인">
 			<input type="submit" value="수정">
 		</fieldset>
 	</form>

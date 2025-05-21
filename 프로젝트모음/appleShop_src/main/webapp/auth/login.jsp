@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 	
+<c:set var="cpath" value="${pageContext.servletContext.contextPath}" /> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +20,10 @@
 		<h2>Stacked form</h2>
 		<!-- default path : http://localhost:9090 -->
 		<h2>contextPath : ${pageContext.request.servletContext.contextPath} </h2>
-		<form action="/appleShop/auth/login" method="post">
+		<form action="${cpath}/auth/login" method="post">
 			<div class="mb-3 mt-3">
-				<label for="email">사용자아이디:</label> 
-				<input type="text" class="form-control" id="userid" placeholder="id 입력" name="userid">
+				<label for="email">사용자아이디(직원번호):</label> 
+				<input type="number" class="form-control" id="userid" placeholder="id 입력" name="userid">
 			</div>
 			<div class="mb-3">
 				<label for="pwd">Password:</label> 

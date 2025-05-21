@@ -1,4 +1,4 @@
-package emp;
+package apt_util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,40 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 public class DBUtil {
 	
+	// DB연결하는 함수
 	public static Connection getConnection() {
 		Connection conn = null;
-		Context initContext;
-		try {
-			initContext = new InitialContext();
-			Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle2");
-		    conn = ds.getConnection();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-	    
-		
-		return conn;
-	}
-	
-	// Oracle DB연결을 Util로 만들었음, DB연결하는 함수
-	public static Connection getConnection2() {
-		Connection conn = null;
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";		// "jdbc:oracle:thin:@192.168.0.18:1521:xe";
-		String userid="hr";	//"hr","scott"
-		String userpass="hr"; //"hr","scott"
+		String url = "jdbc:oracle:thin:@192.168.0.200:1521:xe";		// "jdbc:oracle:thin:@192.168.0.18:1521:xe";
+		String userid="project";	//"hr","scott"
+		String userpass="1234"; //"hr","scott"
 		
 		try {
 			try {

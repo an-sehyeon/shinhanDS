@@ -10,6 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import emp.EmpDTO;
+import emp.EmpService;
 
 /**
  * 405 - 허용되지 않는 메소드, 요청한 메서드가 정의되지 않음
@@ -18,8 +22,14 @@ import javax.servlet.http.HttpServletResponse;
  * 서블릿 default 경로는 contextPath :  / appleShop
  */
 @WebServlet("/auth/login")
-public class loginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
+	
        
 	// get요청으로 한글이 넘어오면 자동으로 encoding, decoding된다 (깨짐없음)
 	// post는 한글이 넘어오면 요청문서의 body로 encoding없이 넘어온다.(깨짐)
@@ -30,6 +40,34 @@ public class loginServlet extends HttpServlet {
 		String u_id = request.getParameter("userid");
 		String u_pwd = request.getParameter("pswd"); 
 		String u_remember = request.getParameter("remember"); 
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		//로그인 체크 ....employees table => userid는 employee_id, pswd는 email
+		int empid = Integer.parseInt(u_id);
+		EmpService empService = new EmpService();
+		EmpDTO emp = empService.selectById(empid);
+		if(emp == null) {
+			System.out.println("로그인실패");
+			response.sendRedirect("login");
+			return;
+		}
+		
+		if(!(emp.getEmail().equals(u_pwd))){
+			System.out.println("비밀번호 오류");
+			//response.sendRedirect("login");
+			out.print("<script>alert('비밀번호가 일치하지 않습니다.'); location.href='" + request.getContextPath() + "/auth/login';</script>");
+			out.flush();
+			return;
+		}
+		System.out.println("로그인성공");
+		HttpSession session = request.getSession();		//true : 세션이 존재하면 얻고 없으면 생성
+		
+		session.setMaxInactiveInterval(24*60*60);		// 하루동안 유효
+		session.setAttribute("loginEmp", emp);
+		
+		
 		
 		String[] arr = request.getParameterValues("subject");
 		
@@ -58,12 +96,12 @@ public class loginServlet extends HttpServlet {
 		
 		// 응답문서를 설정하고 만들기
 		// 주의 : 설정 후 문서만들기가 되어야한다.
-		response.setContentType("text/html;charset=utf-8");
-    	PrintWriter out = response.getWriter();
+		
+    	
     	out.print("<h1>응답문서</h1>");
     	out.print("<h1>path:" + request.getContextPath() + "</h1>");
     	out.print("<h1>접속한 client: " + request.getRemoteAddr() + "</h1>");
-		out.print("<h1>Served at : "+ request.getContextPath() +"</h1>");
+		out.print("<h1>로그인한 사용자 : "+ emp +"</h1>");
 	}
 
 

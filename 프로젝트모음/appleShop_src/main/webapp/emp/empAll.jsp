@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<!-- 절대경로 변수설정 -->
+<c:set var="cpath" value="${pageContext.servletContext.contextPath}" />   
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,12 +56,14 @@ $(()=>{
 		margin: 0 auto;
 	}
 	
+	
+	
 </style>
 </head>
 <body>
   <div id="container">
 	<h1 class="title">직원목록 조회</h1>
-	<button type="button" onclick="location.href='/web/day01/jsp/empinsert.jsp'" class="btn btn-success">신규직원등록</button>
+	<button type="button" onclick="location.href='${cpath}/emp/empinsert.do'" class="btn btn-success">신규직원등록</button>
 	<button type="button" onclick="location.href='/web/index.html'" class="btn btn-info">컴백홈</button>
 	<hr>
 	급여: <input type="number" id="salaryInput">이상
@@ -75,16 +79,16 @@ $(()=>{
 		<thead>
 			<tr>
 				<th>직원번호</th>
-				<th>이름</th>
 				<th>성</th>
+				<th>이름</th>
 				<th>이메일</th>
+				<th>전화번호</th>
+				<th>입사일</th>
+				<th>직책</th>
 				<th>급여</th>
-				<th>부서</th>
 				<th>커미션</th>
 				<th>매니저</th>
-				<th>전화번호</th>
-				<th>직책</th>
-				<th>입사일</th>
+				<th>부서번호</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
@@ -96,22 +100,23 @@ $(()=>{
 			-->
 			<c:forEach items="${ emplist }" var="emp">
 				<tr>
-					<td><a href="empdetail.do?empid=${emp.employee_id}">${emp.employee_id}</a></td>
+					<td><a href="${cpath}/emp/empdetail.do?empid=${emp.employee_id}">${emp.employee_id}</a></td>
 					<td>${emp.first_name}</td>
 					<td>${emp.last_name}</td>
 					<td>${emp.email}</td>
 					<td>${emp.phone_number}</td>
 					<td>${emp.hire_date}</td>
 					<td>${emp.job_id}</td>
-					<td>${emp.salary}</td>
+					<td class="salary">${emp.salary}</td>
 					<td>${emp.commission_pct}</td>
 					<td>${emp.manager_id}</td>
 					<td>${emp.department_id}</td>
-					<td><a href="">🗑️</a></td>
+					<td><a href="${cpath}/emp/empdelete.do?empid=${emp.employee_id}">🗑️</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>	
 	</table>
   </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
