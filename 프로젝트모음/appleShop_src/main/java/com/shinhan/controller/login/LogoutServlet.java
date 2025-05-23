@@ -1,4 +1,4 @@
-package com.shinhan.apt_office;
+package com.shinhan.controller.login;
 
 import java.io.IOException;
 
@@ -7,24 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import application_office.model.OfficeService;
+import javax.servlet.http.HttpSession;
 
 /**
- * 접수자들의 모든 데이터 리스트 조회
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/application_office/userInfo")
-public class AllList extends HttpServlet {
+@WebServlet("/auth/logout.do")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		OfficeService officeService = new OfficeService();
 		
-		request.setAttribute("userinfolist", officeService.selectAll());
+		HttpSession session = request.getSession();
+		session.invalidate();
+		response.sendRedirect("login");
 		
-		request.getRequestDispatcher("/office/adminpage.jsp")
-			.forward(request, response);
-	
 	}
 
 }

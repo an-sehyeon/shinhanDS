@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<h1>${ resultMessage }</h1>
 	<a href="deptlist">목록보기</a>
 </body>

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<!-- request.setAttribute("cpath","/appleShop") -->
-<c:set var="cpath" value="${pageContext.servletContext.contextPath}" />   
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +11,20 @@
 </style>
 </head>
 <body>
-	<!-- request > session > application -->
-	<p>현재로그인한 직원: ${loginEmp.first_name}</p>
 
+	<!-- jsp 정적,동적 자원 실습 -->
+	<!-- 정적자원, jsp를 합쳐서 컴파일한다.(.java) -> class -> jsp실행 -->
+	<%@ include file="../common/header.jsp" %>
+	
+	<!-- 동적자원, 각각의 jsp를 컴파일후에 함친다. JSTL은 자동으로 contextpath인식 -->
+	<%-- <c:import url="/common/header.jsp"></c:import> --%>
+	<!-- HTML tag는 자동으로 contextpath인식못함 -->
+	<br>
+	<img src="${cpath}/images/healing.jpg" width="100" height="100"/>
+	
+	
+	
+	
 	<h1>신규 직원 등록</h1>
 	<input type="button" onclick="location.href='${cpath}/emp/emplist.do'" value="돌아가기">
 	<br>

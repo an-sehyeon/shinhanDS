@@ -14,6 +14,7 @@
 </style>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<h1>${emp.employee_id}번 직원 상세보기</h1>
 	<hr>
 	<form action="${cpath}/emp/empdetail.do" method="post">

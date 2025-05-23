@@ -1,4 +1,4 @@
-package com.shinhan.apt_office;
+package com.shinhan.apt_info;
 
 import java.io.IOException;
 
@@ -8,23 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import application_office.model.OfficeDTO;
 import application_office.model.OfficeService;
 
 /**
- * 접수자들의 모든 데이터 리스트 조회
+ * Servlet implementation class LuckyDetail
  */
-@WebServlet("/application_office/userInfo")
-public class AllList extends HttpServlet {
+@WebServlet("/luckydetail")
+public class LuckyDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String name = request.getParameter("name");
+		int bno = Integer.parseInt(name);
 		OfficeService officeService = new OfficeService();
+		OfficeDTO list = officeService.luckyDetail(bno);
 		
-		request.setAttribute("userinfolist", officeService.selectAll());
 		
-		request.getRequestDispatcher("/office/adminpage.jsp")
-			.forward(request, response);
-	
+		
+		
 	}
 
 }

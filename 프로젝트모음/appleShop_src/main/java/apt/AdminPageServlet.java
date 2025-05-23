@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_office.OfficeDTO;
-import application_office.OfficeService;
+import application_office.model.OfficeDTO;
+import application_office.model.OfficeService;
 
 /**
  * Servlet implementation class AdminPageServlet
@@ -24,18 +24,14 @@ public class AdminPageServlet extends HttpServlet {
 		String keyword = request.getParameter("columnName");
 		String value = request.getParameter("inputValue");
 		
-		if(keyword == "bno" || keyword == "housing_area") {
-			Integer.parseInt(value);
-		}
-		System.out.println("keyword : " + keyword + "value : " + value);
-		
 		OfficeService officeService = new OfficeService();
         List<OfficeDTO> list = officeService.selectDetail(keyword, value);
         
         request.setAttribute("userinfolist", list);
         request.getRequestDispatcher("/office/userSearchResult.jsp")
         	.forward(request, response);
-		
+		System.out.println(keyword);
+		System.out.println(value);
 	
 	}
 	

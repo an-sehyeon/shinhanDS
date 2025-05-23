@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-<!-- 절대경로 변수설정 -->
-<c:set var="cpath" value="${pageContext.servletContext.contextPath}" />   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="empAll.js"></script>
 <script>
 $(()=>{
@@ -55,13 +49,16 @@ $(()=>{
 		width: 1000px;
 		margin: 0 auto;
 	}
-	
+	.login { color:blue;}
+	.logout { color:black;}
 	
 	
 </style>
 </head>
 <body>
   <div id="container">
+  	<%@ include file="../common/header.jsp" %>
+  	
 	<h1 class="title">직원목록 조회</h1>
 	<button type="button" onclick="location.href='${cpath}/emp/empinsert.do'" class="btn btn-success">신규직원등록</button>
 	<button type="button" onclick="location.href='/web/index.html'" class="btn btn-info">컴백홈</button>
@@ -78,6 +75,8 @@ $(()=>{
 	<table>
 		<thead>
 			<tr>
+				<th>순서</th>
+				<th>로그인여부</th>
 				<th>직원번호</th>
 				<th>성</th>
 				<th>이름</th>
@@ -98,20 +97,47 @@ $(()=>{
 			<%-- JSP주석 : JSP해석기가 해석안함을 의미, Tomcat이 JSP를 해석후 HMTL로 만든다.
 			HTML문서는 남지않는다. ${} --%> 
 			-->
-			<c:forEach items="${ emplist }" var="emp">
+			<c:forEach items="${ emplist }" var="emp" varStatus="status">
 				<tr>
+					<td>${status.index}<span>👍👍</span>${status.count}
+						<span>${status.first?"처음":"" }</span>
+						<span>${status.last?"마지막":"" }</span>
+					</td>
+					<td>
+					<c:if test="${loginEmp.employee_id==emp.employee_id}">
+						<span class="login">로그인중</span>
+					</c:if>
+					<c:if test="${loginEmp.employee_id!=emp.employee_id}">
+						<span class="logout">직원</span>
+					</c:if>
+					</td>
 					<td><a href="${cpath}/emp/empdetail.do?empid=${emp.employee_id}">${emp.employee_id}</a></td>
 					<td>${emp.first_name}</td>
 					<td>${emp.last_name}</td>
 					<td>${emp.email}</td>
 					<td>${emp.phone_number}</td>
-					<td>${emp.hire_date}</td>
+					<%-- <td>${emp.hire_date}</td> --%>
+					<td>
+						<fmt:formatDate pattern="yyyy-mm-dd hh:mm:ss" value="${emp.hire_date}"/>
+					</td>
 					<td>${emp.job_id}</td>
-					<td class="salary">${emp.salary}</td>
+					<%-- <td class="salary">${emp.salary}</td> --%>
+					<td>
+						<fmt:formatNumber type="currency" currencySymbol="$" groupingUsed="true" value="${emp.salary}"></fmt:formatNumber>
+					</td>
 					<td>${emp.commission_pct}</td>
 					<td>${emp.manager_id}</td>
 					<td>${emp.department_id}</td>
-					<td><a href="${cpath}/emp/empdelete.do?empid=${emp.employee_id}">🗑️</a></td>
+					<td><a href="${cpath}/emp/empdelete.do?empid=${emp.employee_id}">
+						<c:if test="${status.index%2==0}">
+							🗑					
+						</c:if>
+						<c:if test="${status.index%2==1}">
+							❤️					
+						</c:if>
+					</a>
+					</td>
+					
 				</tr>
 			</c:forEach>
 		</tbody>	

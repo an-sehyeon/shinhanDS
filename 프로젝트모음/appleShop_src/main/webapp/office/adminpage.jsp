@@ -8,6 +8,25 @@
 <script>
 $(()=>{
 	$("#s_btn").on("click",f_search);
+	$("#reset").on("click",f_reset);
+	
+	// 초기화버튼
+	function f_reset(){
+		// 모든 테이블 행을 가져옴
+	    var rows = document.querySelectorAll("tr");
+
+	    // 각 행의 배경색을 초기화
+	    /* rows.forEach((row) => {
+	        row.style.backgroundColor = ""; // 원래 색으로 복원
+	    }); */
+
+	    // 입력창의 값을 초기화
+	    document.getElementById("s_input").value = "";
+	    
+	    // div영역의 결과도 초기화
+	    document.getElementById("s_list").innerHTML = "";
+	};
+	
 	
 	// #s_btn 클릭시 값 전송
 	function f_search(){
@@ -24,7 +43,7 @@ $(()=>{
 	    		columnName: columnName,
 	    		inputValue: inputValue
 	    	},
-	    	sussess: function(response){
+	    	success: function(response){
 	    		$("#s_list").html(response);
 	    	},
 	    	error: function(){
@@ -105,7 +124,7 @@ $(()=>{
 			}
 	});
 });		
-</script>
+</script> 
 <meta charset="UTF-8">
 <style>
 	thead {
@@ -163,6 +182,7 @@ $(()=>{
 		</select>
 		<input id="s_input" type="number" placeholder="접수번호입력">
 		<button id="s_btn">조회</button>
+		<button id="reset">초기화</button>
 		<br><br>
 		<div id="s_list">
 		</div>

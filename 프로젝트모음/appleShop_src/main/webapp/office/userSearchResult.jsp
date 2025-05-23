@@ -6,6 +6,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+$(()=>{
+	//평형수에 따른 사용자 색상 지정
+	var rows = document.querySelectorAll("tbody tr");
+		
+		rows.forEach(row =>{
+			var cell = row.querySelector("td[data-area_id]");
+			if(cell){
+				var id = cell.getAttribute("data-area_id");
+				id = parseInt(id);
+				if(id == 24){
+					row.style.backgroundColor = "#FF000078";
+				}else if(id == 34){
+					row.style.backgroundColor = "#EA00FFFF";
+				}else if(id == 48){
+					row.style.backgroundColor = "#15FF00A3";
+				}
+			}
+	});
+});		
+</script>
 </head>
 <body>
 	<table>
@@ -19,7 +40,7 @@
             <th>평수</th>
             <th>총점</th>
             <th>순위</th>
-            <th>삭제</th>
+            <!-- <th>삭제</th> -->
         </tr>
     </thead>
     <tbody>
@@ -30,10 +51,10 @@
                 <td>${office.reg_no}</td>
                 <td>${office.phone}</td>
                 <td>${office.address}</td>
-                <td>${office.housing_area}</td>
+                <td data-area_id="${office.housing_area}">${office.housing_area}평</td>
                 <td>${office.total_score}</td>
                 <td>${office.area_rank}</td>
-                <td><a href="#">🗑️</a></td>
+                <!-- <td><a href="#">🗑️</a></td> -->
             </tr>
         </c:forEach>
     </tbody>

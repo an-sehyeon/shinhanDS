@@ -10,6 +10,7 @@
 </style>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<h1>${ dept.department_id }번 ${ dept.department_name } 부서 상세보기</h1>
 	<hr>
 	<form action="/web/day02/jsp/deptupdate.jsp">

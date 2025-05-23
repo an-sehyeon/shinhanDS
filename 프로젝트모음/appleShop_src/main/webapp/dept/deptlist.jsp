@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"
- %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<h1>부서목록조회</h1>
 	<hr>
+	<form action="${cpath}/dept/deptdelete" method="post">
+	<input type="submit" value="선택삭제">
 	<table border="1">
 		<thead>
 			<tr>
@@ -19,6 +20,7 @@
 				<th>매니저번호</th>
 				<th>지역코드</th>
 				<th>삭제</th>
+				<th>선택</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,9 +31,14 @@
 					<td>${dept.manager_id }</td>
 					<td>${dept.location_id }</td>
 					<td><a href="deptdelete?deptid=${dept.department_id }">🗑️</a></td>
+					<td>
+						<input type="checkbox" name="del" value="${dept.department_id}">삭제
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	</form>
 </body>
-</html>
+	</html>
+					

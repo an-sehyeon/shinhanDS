@@ -49,6 +49,7 @@ function call(){
 </script>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<h1>부서입력</h1>
 	<hr>
 	<!-- onsubmit="return call();" -->

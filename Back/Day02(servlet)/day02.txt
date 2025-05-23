@@ -73,8 +73,9 @@ Day02(25.5.21)
     controller3 > SetCookieServlet.java, GetCookieServlet.java
     쿠키 유효시간 설정 : .setMaxAge();
 
-    - 장바구니 담기
-    controller3 > CartServlet.java
+    - 장바구니 담기 (쿠키에 저장)
+    controller3 > CartServletCookie.java
+    controller3 > CartViewServletCookie.java
     webapp > jsp > addCart.jsp
     
     - 세션 
