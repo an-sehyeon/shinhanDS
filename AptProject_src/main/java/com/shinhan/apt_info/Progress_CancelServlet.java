@@ -29,7 +29,7 @@ public class Progress_CancelServlet extends HttpServlet {
 		session.setAttribute("name", name);
 		
 		InfoService infoService = new InfoService();
-		int info = infoService.deleteInfo(name, reg_no, bno);
+		int info = infoService.deleteInfo(bno, name, reg_no);
 		System.out.println(info+"건 삭제");
 		if(info == 0) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); 

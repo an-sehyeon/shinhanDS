@@ -37,8 +37,8 @@ public class InfoService {
 	}
 	
 	
-	public int deleteInfo(String name, String reg_no, int bno) {
-		int result = infoDAO.deleteInfo(name,reg_no,bno);
+	public int deleteInfo(int bno, String name, String reg_no) {
+		int result = infoDAO.deleteInfo(bno,name,reg_no);
 		System.out.println("InfoService에서 로그 출력: " + result + "건 delete");		
 		return result;
 	}

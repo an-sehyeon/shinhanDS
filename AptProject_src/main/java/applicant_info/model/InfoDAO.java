@@ -1,5 +1,6 @@
 package applicant_info.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,8 +40,7 @@ public class InfoDAO {
 				where bno = ?
 			""";
 		static final String MY_INFODELETE ="""
-				delete from applicant_info 
-				where name = ? and reg_no = ? and bno = ?
+				{call delete_applicant(?, ?, ?)}
 				""";
 		static final String AREA_INFO = """
 				select *
@@ -146,18 +146,24 @@ public class InfoDAO {
 		}
 		
 		
-		public int deleteInfo(String name, String reg_no, int bno) {
+		public int deleteInfo(int bno, String name, String reg_no) {
 			conn = DBUtil.getConnection();
+			// 프로시저 호출
+			CallableStatement cstmt = null;
 			try {
-				pst = conn.prepareStatement(MY_INFODELETE);
-				pst.setString(1, name);
-				pst.setString(2, reg_no);
-				pst.setInt(3, bno);
-				resultCount = pst.executeUpdate();
+				cstmt = conn.prepareCall(MY_INFODELETE);
+				cstmt.setInt(1, bno);
+		        cstmt.setString(2, name);
+		        cstmt.setString(3, reg_no);
+		        
+		        // 프로시저 내부에서 commit 수행
+		        cstmt.execute();
+		        // 성공했다고 가정하여 1로 반환
+				resultCount = 1;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				DBUtil.dbDisconnect(conn, pst, null);
+				DBUtil.dbDisconnect(conn, cstmt, null);
 			}
 			
 			return resultCount;

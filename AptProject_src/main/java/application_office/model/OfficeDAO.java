@@ -32,7 +32,7 @@ public class OfficeDAO {
 			where ai.name = ?
 			""";
 	static final String SELECT_ALL = """
-			select * from view_all_list order by bno asc
+			select * from view_all_list order by name asc
 			""";
 	static final String SELECT_BNO = """
 			select * from view_all_list where bno = ?
@@ -65,7 +65,7 @@ public class OfficeDAO {
 		List<OfficeDTO> list = new ArrayList<>();
 		conn = DBUtil.getConnection();
 		try {
-			String sql = "select * from view_all_list where "+keyword+" = ?"; 
+			String sql = "select * from view_all_list where "+keyword+" = ? order by area_rank asc"; 
 			pst = conn.prepareStatement(sql);
 			if(keyword.equals("bno") || keyword.equals("housing_area")) {
 				pst.setInt(1, Integer.parseInt(value));
