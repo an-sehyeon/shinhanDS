@@ -12,7 +12,10 @@
 <link rel="icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
 
 <p>현재 로그인한 직원: ${loginEmp == null ? "guest" : loginEmp.first_name}님 환영합니다.</p>
+
+<c:if test="${loginEmp != null}">
 <a class="btn btn-primary" href="${cpath}/auth/logout.do">로그아웃</a>
+</c:if>
 <style>
 	p {
 	background-color: orange;

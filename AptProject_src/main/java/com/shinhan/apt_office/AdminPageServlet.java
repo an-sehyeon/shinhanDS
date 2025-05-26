@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_office.model.OfficeDTO;
-import application_office.model.OfficeService;
+import application_office_model.OfficeDTO;
+import application_office_model.OfficeService;
 
 /**
  * 

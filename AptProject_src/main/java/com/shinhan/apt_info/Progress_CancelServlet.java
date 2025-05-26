@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import applicant_info.model.InfoService;
+import applicant_info_model.InfoService;
 
 /**
  * Servlet implementation class Progress_CancelServlet

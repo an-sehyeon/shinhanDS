@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import applicant_info.model.InfoDTO;
-import applicant_info.model.InfoService;
+import applicant_info_model.InfoDTO;
+import applicant_info_model.InfoService;
 
 /**
  * Servlet implementation class PaymentPlanServlet

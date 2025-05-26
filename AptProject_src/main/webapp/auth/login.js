@@ -16,12 +16,28 @@ document.querySelector('.cont_form_sign_up').style.display = "none";
   const time_to_show_sign_up = 100;
   const time_to_hidden_sign_up = 400;
 
-function change_to_sign_up(at) {
+function change_to_sign_up1() {
   document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
-  document.querySelector('.cont_form_sign_up').style.display = "block";
+  document.querySelector('.cont_form_sign_up_user').style.display = "block";
+  document.querySelector('.cont_form_sign_up_admin').style.display = "none";
+  document.querySelector('.cont_form_login').style.opacity = "0";
+  
+setTimeout(function(){  document.querySelector('.cont_form_sign_up_user').style.opacity = "1";
+},time_to_show_sign_up);  
+
+setTimeout(function(){   document.querySelector('.cont_form_login').style.display = "none";
+},time_to_hidden_sign_up);  
+
+
+}    
+
+function change_to_sign_up2() {
+  document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
+  document.querySelector('.cont_form_sign_up_admin').style.display = "block";
+  document.querySelector('.cont_form_sign_up_user').style.display = "none";
 document.querySelector('.cont_form_login').style.opacity = "0";
   
-setTimeout(function(){  document.querySelector('.cont_form_sign_up').style.opacity = "1";
+setTimeout(function(){  document.querySelector('.cont_form_sign_up_admin').style.opacity = "1";
 },time_to_show_sign_up);  
 
 setTimeout(function(){   document.querySelector('.cont_form_login').style.display = "none";
@@ -33,14 +49,14 @@ setTimeout(function(){   document.querySelector('.cont_form_login').style.displa
 const time_to_hidden_all = 500;
 
 function hidden_login_and_sign_up() {
+  document.querySelector('.cont_forms').className = "cont_forms";
+  document.querySelector('.cont_form_sign_up_user').style.opacity = "0";
+  document.querySelector('.cont_form_sign_up_admin').style.opacity = "0";
+  document.querySelector('.cont_form_login').style.opacity = "0";
 
-document.querySelector('.cont_forms').className = "cont_forms";  
-document.querySelector('.cont_form_sign_up').style.opacity = "0";               
-document.querySelector('.cont_form_login').style.opacity = "0"; 
-
-setTimeout(function(){
-document.querySelector('.cont_form_sign_up').style.display = "none";
-document.querySelector('.cont_form_login').style.display = "none";
-},time_to_hidden_all);  
-  
-  }
+  setTimeout(function () {
+    document.querySelector('.cont_form_sign_up_user').style.display = "none";
+    document.querySelector('.cont_form_sign_up_admin').style.display = "none";
+    document.querySelector('.cont_form_login').style.display = "none";
+  }, time_to_hidden_all);
+}

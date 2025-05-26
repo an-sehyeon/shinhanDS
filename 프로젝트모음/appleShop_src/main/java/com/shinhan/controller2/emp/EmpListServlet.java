@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dept.DeptService;
 import emp.EmpService;
+import job.JobDAO;
 
 /**
  * Servlet implementation class EmpListServlet
@@ -35,6 +37,12 @@ public class EmpListServlet extends HttpServlet {
 		EmpService empService = new EmpService();
 		// 데이터 저장
 		request.setAttribute("emplist", empService.selectAll());
+		
+		DeptService deptService = new DeptService();
+		request.setAttribute("deptlist", deptService.selectAll());
+		
+		JobDAO jobDAO = new JobDAO();
+		request.setAttribute("joblist", jobDAO.getAllJobs());
 		
 		// 2. JSP(View담당)에게 위임, 응답은 JSP가 한다.
 		request.getRequestDispatcher("empAll.jsp")

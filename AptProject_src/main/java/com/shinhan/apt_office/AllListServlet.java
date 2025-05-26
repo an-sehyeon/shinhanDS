@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_office.model.OfficeService;
+import application_office_model.OfficeService;
 
 /**
  * 접수자들의 모든 데이터 리스트 조회

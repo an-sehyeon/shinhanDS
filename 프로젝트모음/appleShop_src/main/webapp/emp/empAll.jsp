@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../common/header.jsp" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="empAll.js"></script>
 <script>
 $(()=>{
 	// ()=> {} 화살표함수에서 this는 window, bind()함수로 object를 bind()하여 this설정가능
@@ -16,6 +16,48 @@ $(()=>{
 	});
 	
 	
+});
+</script>
+<script>
+$(function(){
+	
+	$("#dept_job").on("click",function(){
+		var deptid = $("#deptid").val();
+		var jobid = $("#jobid").val();
+		
+		$.ajax({
+			url:"selectByDeptAndJob.do",
+			data:{"deptid":deptid,"jobid":jobid},
+			success:function(response){
+				$("#here").html(response);
+			}
+		});
+	});
+	
+	/*$("#deptid").on("change", function(){
+		var deptid = $(this).val();
+		$.ajax({
+			url:"selectByDept.do",
+			data:{"deptid":deptid},
+			success:function(response){
+				$("#here").html(response);
+			}
+		});
+	});
+});
+
+
+$(function(){
+	$("#jobid").on("change", function(){
+		var jobid = $(this).val();
+		$.ajax({
+			url:"selectByJob.do",
+			data:{"jobid":jobid},
+			success:function(response){
+				$("#here").html(response);
+			}
+		});
+	});*/
 });
 </script>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -57,11 +99,27 @@ $(()=>{
 </head>
 <body>
   <div id="container">
-  	<%@ include file="../common/header.jsp" %>
-  	
 	<h1 class="title">직원목록 조회</h1>
 	<button type="button" onclick="location.href='${cpath}/emp/empinsert.do'" class="btn btn-success">신규직원등록</button>
 	<button type="button" onclick="location.href='/web/index.html'" class="btn btn-info">컴백홈</button>
+	<hr>
+	부서로조회:
+	<select id="deptid">
+		<c:forEach items="${deptlist}" var="dept">
+		<option value="${dept.department_id}">
+			${dept.department_name}
+		</option>
+		</c:forEach>
+	</select>
+	직책으로조회:
+	<select id="jobid">
+		<c:forEach items="${joblist}" var="job">
+		<option value="${job.jobId}">
+			${job.jobId}
+		</option>
+		</c:forEach>
+	</select>
+	<button id="dept_job">부서와 직책으로 조회</button>
 	<hr>
 	급여: <input type="number" id="salaryInput">이상
 	<button id="selectbtn">직원찾기(스타일변경)</button>
@@ -91,11 +149,11 @@ $(()=>{
 				<th>삭제</th>
 			</tr>
 		</thead>
-		<tbody>
-			<!-- 
+		<tbody id="here">
+			<%-- <!-- 
 			HTML주석 : HTML해석기가 해석안함을 의미, ${aa}
-			<%-- JSP주석 : JSP해석기가 해석안함을 의미, Tomcat이 JSP를 해석후 HMTL로 만든다.
-			HTML문서는 남지않는다. ${} --%> 
+			JSP주석 : JSP해석기가 해석안함을 의미, Tomcat이 JSP를 해석후 HMTL로 만든다.
+			HTML문서는 남지않는다. ${} 
 			-->
 			<c:forEach items="${ emplist }" var="emp" varStatus="status">
 				<tr>
@@ -116,12 +174,12 @@ $(()=>{
 					<td>${emp.last_name}</td>
 					<td>${emp.email}</td>
 					<td>${emp.phone_number}</td>
-					<%-- <td>${emp.hire_date}</td> --%>
+					<td>${emp.hire_date}</td>
 					<td>
 						<fmt:formatDate pattern="yyyy-mm-dd hh:mm:ss" value="${emp.hire_date}"/>
 					</td>
 					<td>${emp.job_id}</td>
-					<%-- <td class="salary">${emp.salary}</td> --%>
+					<td class="salary">${emp.salary}</td>
 					<td>
 						<fmt:formatNumber type="currency" currencySymbol="$" groupingUsed="true" value="${emp.salary}"></fmt:formatNumber>
 					</td>
@@ -139,7 +197,7 @@ $(()=>{
 					</td>
 					
 				</tr>
-			</c:forEach>
+			</c:forEach> --%>
 		</tbody>	
 	</table>
   </div>

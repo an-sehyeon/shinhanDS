@@ -325,7 +325,7 @@ background text
   box-sizing: border-box;
   height: 80vh;
   overflow-y: auto;
-  padding-bottom: 80px;
+  padding-bottom: 400px;
 }
 
 .cont_form_sign_up > input {

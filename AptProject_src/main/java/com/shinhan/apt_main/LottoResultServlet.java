@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import application_office.model.OfficeDTO;
-import application_office.model.OfficeService;
+import application_office_model.OfficeDTO;
+import application_office_model.OfficeService;
 
 /**
  * Servlet implementation class MyPageServlet
@@ -22,6 +22,11 @@ public class LottoResultServlet extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		OfficeService officeService = new OfficeService();
 		OfficeDTO office = officeService.luckyDetail(bno);
+		if (office == null) {
+		    System.out.println("해당 접수번호의 사용자는 존재하지 않습니다.");
+		    return;
+		}
+
 		
 		request.setAttribute("office", office);
 		
