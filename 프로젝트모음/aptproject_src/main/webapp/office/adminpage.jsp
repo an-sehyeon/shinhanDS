@@ -37,7 +37,7 @@ $(()=>{
 	    var columnName = convertToColumnName(selectedValue);
 	    
 	    $.ajax({
-	    	url: "${pageContext.request.contextPath}/office/search",
+	    	url: "${cpath}/office/search",
 	    	type: "get",
 	    	data: {
 	    		columnName: columnName,
@@ -115,18 +115,29 @@ $(()=>{
 				var id = cell.getAttribute("data-area_id");
 				id = parseInt(id);
 				if(id == 24){
-					row.style.backgroundColor = "#FF000078";
+					row.style.backgroundColor = "#A8E6CF";
 				}else if(id == 34){
-					row.style.backgroundColor = "#EA00FFFF";
+					row.style.backgroundColor = "#D1C4E9";
 				}else if(id == 48){
-					row.style.backgroundColor = "#15FF00A3";
+					row.style.backgroundColor = "#FFCCBC";
 				}
 			}
 	});
 });		
 </script> 
+<script>
+var urlParams = new URLSearchParams(window.location.search);
+var message = urlParams.get("message");
+if (message) {
+	alert(decodeURIComponent(message));
+}
+</script>
 <meta charset="UTF-8">
 <style>
+	body {
+		background-color: #FFFDF8;
+	}
+	
 	thead {
 		background-color: orange;
 	}
@@ -159,9 +170,9 @@ $(()=>{
 	  font-size: 14px;
 	  border-radius: 4px;
 	}
-	.color-24 {background-color: #FF000078; }
-	.color-34 {background-color: #EA00FFFF; }
-	.color-48 {background-color: #15FF00A3; }
+	.color-24 {background-color: #A8E6CF; }
+	.color-34 {background-color: #D1C4E9; }
+	.color-48 {background-color: #FFCCBC; }
 	
 </style>
 <title>preReg_all_list</title>
@@ -217,7 +228,7 @@ $(()=>{
 						<td data-area_id="${office.housing_area}">${office.housing_area}평</td>
 						<td>${office.total_score}점</td>
 						<td>${office.area_rank}위</td>
-						<td><a href="">🗑️</a></td>
+						<td><a href="userdelete.do?bno=${office.bno} name=${office.name} reg_no=${office.reg_no}">🗑️</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

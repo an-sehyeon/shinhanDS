@@ -3,7 +3,6 @@ package com.shinhan.controller2.emp;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,7 @@ import job.JobDAO;
 /**
  * Servlet implementation class EmpListServlet
  */
-@WebServlet("/emp/emplist.do")
+//@WebServlet("/emp/emplist.do")
 public class EmpListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

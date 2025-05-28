@@ -17,11 +17,11 @@ $(()=>{
 				var id = cell.getAttribute("data-area_id");
 				id = parseInt(id);
 				if(id == 24){
-					row.style.backgroundColor = "#FF000078";
+					row.style.backgroundColor = "#A8E6CF";
 				}else if(id == 34){
-					row.style.backgroundColor = "#EA00FFFF";
+					row.style.backgroundColor = "#D1C4E9";
 				}else if(id == 48){
-					row.style.backgroundColor = "#15FF00A3";
+					row.style.backgroundColor = "#FFCCBC";
 				}
 			}
 	});
@@ -34,8 +34,8 @@ $(()=>{
         <tr>
             <th>접수번호</th>
             <th>이름</th>
-            <th>주민번호</th
-            ><th>전화번호</th>
+            <th>주민번호</th>
+            <th>전화번호</th>
             <th>주소</th>
             <th>평수</th>
             <th>총점</th>

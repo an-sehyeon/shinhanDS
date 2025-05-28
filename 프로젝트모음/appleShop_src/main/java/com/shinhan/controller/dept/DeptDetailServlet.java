@@ -3,7 +3,6 @@ package com.shinhan.controller.dept;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,16 +13,16 @@ import dept.DeptService;
 /**
  * Servlet implementation class DeptDetailServlet
  */
-@WebServlet("/dept/deptdetail")
+//@WebServlet("/dept/deptdetail")
 public class DeptDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int s_deptid = convertInt(request.getParameter("deptid"));
+		int deptid = convertInt(request.getParameter("deptid"));
 		DeptService deptService = new DeptService();
-		DeptDTO dept = deptService.selectById(s_deptid);
+		DeptDTO dept = deptService.selectById(deptid);
 
 		// dept의 데이터를 dept에 저장
 		request.setAttribute("dept", dept);

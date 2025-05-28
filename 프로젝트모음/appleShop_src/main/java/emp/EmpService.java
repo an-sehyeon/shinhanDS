@@ -25,8 +25,8 @@ public class EmpService {
 		return empDAO.empDeleteById(empid);
 	}
 	
-	public List<EmpDTO> selectByCondition(Integer[] deptArr,String jobid,int salary,String hdate) {
-		return empDAO.selectByCondition(deptArr,jobid,salary,hdate);
+	public List<EmpDTO> selectByCondition(Integer[] deptArr,String jobid,int salary,String hire_date) {
+		return empDAO.selectByCondition(deptArr,jobid,salary,hire_date);
 	}
 	
 	public List<EmpDTO> selectByJobAndDept(String job, int dept) {

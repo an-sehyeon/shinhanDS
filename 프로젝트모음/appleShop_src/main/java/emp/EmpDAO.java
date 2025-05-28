@@ -161,34 +161,27 @@ public class EmpDAO {
 	
 	// deptArr(다중 조회),job, salary, hire_date로 조회
 	public List<EmpDTO> selectByCondition(Integer[] arr, String jobid, int salary, String hdate) {
-		 List<EmpDTO> emplist = new ArrayList<>();
-		 Connection conn = DBUtil.getConnection();
-		 PreparedStatement st = null;									
-		 ResultSet rs = null;	
-		 String deptStr = Arrays.stream(arr)
-					.map(id->"?").collect(Collectors.joining(",")); //"?,?,?"
-		 
-		 String sql = "select *"
-		 		+ " from employees"
-		 		+ " where job_id like ? "
-		 		+ " and department_id = ?"		
-				+ " and salary >= ?"		
-				+ " and hire_date >= ?";		
-		 
-		 try {
-			st = conn.prepareStatement(sql);							// sql문을 준비
-			st.setString(1, "%"+jobid+"%"); 							// 1번째 ?에 값을 setting한다.
+		List<EmpDTO> emplist = new ArrayList<>();
+		Connection conn = DBUtil.getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		String deptStr = Arrays.stream(arr).map(id -> "?").collect(Collectors.joining(",")); // "?,?,?"
+		String sql = "select * from employees" + " where job_id like ? "
+		       + " and salary >= ?"
+			   + " and hire_date >= ?"
+				+ " and department_id  in (" + deptStr + ")"; // ?,?,?
+		try {
+			st = conn.prepareStatement(sql); // SQL문을 준비한다.
+			st.setString(1, "%" + jobid + "%"); // 1번째 ?에 값을 setting한다.
 			st.setInt(2, salary);
 			Date d = DateUtil.converToSQLDate(DateUtil.converToDate(hdate));
 			st.setDate(3, d);
-			
 			int col = 4;
-			for(int i=0;i<arr.length;i++) {
+			for (int i = 0; i < arr.length; i++) {
 				st.setInt(col++, arr[i]);
 			}
-			
 			rs = st.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				EmpDTO emp = makeEmp(rs);
 				emplist.add(emp);
 			}
@@ -198,10 +191,7 @@ public class EmpDAO {
 		} finally {
 			DBUtil.dbDisconnect(conn, st, rs);
 		}
-		 
-		 return emplist;
-				 
-		
+		return emplist;
 	}
 	
 	

@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,7 @@ import job.JobDTO;
 /**
  * Servlet implementation class EmpDetailList
  */
-@WebServlet("/emp/empdetail.do")
+//@WebServlet("/emp/empdetail.do")
 public class EmpDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

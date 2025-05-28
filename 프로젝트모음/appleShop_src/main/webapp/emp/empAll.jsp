@@ -22,16 +22,28 @@ $(()=>{
 $(function(){
 	
 	$("#dept_job").on("click",function(){
-		var deptid = $("#deptid").val();
-		var jobid = $("#jobid").val();
+		const select = document.getElementById("deptid");
+		const selectedValues = Array.from(select.selectedOptions)
+								.map(option => option.value);
+		
+		var jobid =$("#jobid").val();
+		var salary = $("#salary").val();
+		var hire_date = $("#hire_date").val();
+		var jsonData = {"deptid":$(select).val(),
+				  "jobid":jobid,
+				  "salary":salary,
+				  "hire_date":hire_date
+				  };
 		
 		$.ajax({
-			url:"selectByDeptAndJob.do",
-			data:{"deptid":deptid,"jobid":jobid},
+			url:"selectByCondition.do",
+			contentType: "application/json",
+			type:"post",
+			data: JSON.stringify(jsonData),
 			success:function(response){
 				$("#here").html(response);
 			}
-		});
+		}); 
 	});
 	
 	/*$("#deptid").on("change", function(){
@@ -104,10 +116,10 @@ $(function(){
 	<button type="button" onclick="location.href='/web/index.html'" class="btn btn-info">컴백홈</button>
 	<hr>
 	부서로조회:
-	<select id="deptid">
+	<select id="deptid" multiple="multiple">
 		<c:forEach items="${deptlist}" var="dept">
 		<option value="${dept.department_id}">
-			${dept.department_name}
+			${dept.department_id}-${dept.department_name}
 		</option>
 		</c:forEach>
 	</select>
@@ -119,7 +131,9 @@ $(function(){
 		</option>
 		</c:forEach>
 	</select>
-	<button id="dept_job">부서와 직책으로 조회</button>
+	급여조회(이상):<input type="number" id="salary" value="1000">
+	입사일(이상):<input type="date" id="hire_date" value="2000-01-01">
+	<button id="dept_job">조건조회</button>
 	<hr>
 	급여: <input type="number" id="salaryInput">이상
 	<button id="selectbtn">직원찾기(스타일변경)</button>
