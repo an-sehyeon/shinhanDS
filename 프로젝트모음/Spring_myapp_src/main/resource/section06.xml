@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- Book 객체 생성 -->
+<bean id="book1" class="com.shinhan.myapp.section06.Book" >
+	<property name="title" value="자바다"></property>
+	<property name="price" value="20000"></property>
+	<property name="kind" value="IT"></property>
+</bean>
+<bean id="book2" class="com.shinhan.myapp.section06.Book" >
+	<constructor-arg name="title" value="나는자바다" />
+	<constructor-arg name="price" value="10000" />
+	<constructor-arg name="kind" value="IT" />
+</bean>
+</beans>

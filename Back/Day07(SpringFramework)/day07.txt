@@ -65,6 +65,7 @@ Day07(25.5.28)
             - @PathVariable : URL 경로에서 값을 추출할 때 사용.
             - @RequestParam : 요청 파라미터를 메서드 매개변수에 바인딩.
             - @Transactional : 트랜잭션 관리를 위해 사용.
+            - @Data : Lombok에서 제공하는 어노테이션으로, Getter, Setter, toString, EqualsAndHashCode, RequiredArgsConstructor를 자동으로 생성.
             
             - @PersistenceContext : EntityManager를 주입받아 JPA를 통해 데이터베이스 작업을 수행할 때 사용.
             - @Entity : JPA에서 데이터베이스 테이블과 매핑되는 클래스에 사용.
@@ -95,3 +96,4 @@ Day07(25.5.28)
                 ->    내부의 객체를 빈으로 만들때 유용
                 - <bean>와 같은 의미는 @Bean, @Component, @Service, @Repository, @Controller
 
+    
