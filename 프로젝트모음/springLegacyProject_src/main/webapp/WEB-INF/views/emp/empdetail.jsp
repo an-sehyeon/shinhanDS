@@ -42,7 +42,7 @@
 			<label>입사일: </label><input type="date" name="hire_date" value="${emp.hire_date}"><br>
 		</fieldset>
 		<fieldset>
-			<input type="button" onclick="location.href='${cpath}/emp/emplist.do'" value="확인">
+			<input type="button" onclick="location.href='${cpath}/emp/empAll.do'" value="확인">
 			<input type="submit" value="수정">
 		</fieldset>
 	</form>
