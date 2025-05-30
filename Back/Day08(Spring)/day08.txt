@@ -1,7 +1,9 @@
 Day08(25.5.29)
 
 
-
+https://mvnrepository.com 
+- 중앙 지역 저장소 사이트
+    - Maven Repository : 프로젝트에 사용되는 프로젝트 jar 파일, 라이브러리 jar...들이 위치
 
 1. IOC와 DI
     - Inversion Of Control : 제어권을 Spring이 가짐

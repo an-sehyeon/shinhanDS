@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1 style="text-align: center;">Hello.jsp페이지임</h1>
-	<p style="text-align: center; color: maroon; font-size: 20px">아이엠${myname}...${major}</p>
+	<h1>paramTest.jsp</h1>
 </body>
 </html>
