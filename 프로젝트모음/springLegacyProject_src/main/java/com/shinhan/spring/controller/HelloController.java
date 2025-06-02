@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.shinhan.spring.model.DeptDTO;
-import com.shinhan.spring.model.DeptService;
+import com.shinhan.spring.model.dept.DeptDTO;
+import com.shinhan.spring.model.dept.DeptService;
 
 @Controller
 @RequestMapping("/first")			// 공통적인 주소는 class level에서 작성

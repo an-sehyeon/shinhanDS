@@ -3,14 +3,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	
+	<!-- sqlSession을 만들기 위한 환경 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+		 value="classpath:mybatis/sqlMapConfig.xml" />
+		<property name="mapperLocations" 
+		value="classpath:mybatis/mappers/*.xml" />
+		</bean>
+		<!-- Mapper의 SQL구문을 실행할수있다.(SQL문은 session단위로 실행함) -->
+		<bean id="sqlSession"
+			 class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+		</bean>
+	
+	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	       <property name="location" value="/WEB-INF/spring/oracleDB.properties"/>
+	       <property name="fileEncoding" value="UTF-8" />
+	 	</bean>
 	
 		<!-- Spring jdbc를 이용해서 DB사용 -->
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-			<property name="username" value="hr"/>
-			<property name="password" value="hr"/>
+		<!-- Connection Pooling -->
+		 <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+			<property name="driverClassName" value="${oracle.driverClassName}"/>
+			<property name="url" value="${oracle.url}" />
+			<property name="username" value="${oracle.username}"/>
+			<property name="password" value="${oracle.pwd}"/>
 		</bean>
+		
+		
+		<!-- Spring jdbc를 이용해서 DB사용 -->
+		<!-- <bean id="dataSource2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="${oracle.driverClassName}"/>
+			<property name="url" value="${oracle.url}" />
+			<property name="username" value="${oracle.username}"/>
+			<property name="password" value="${oracle.pwd}"/>
+		</bean>  -->
 		
 </beans>

@@ -17,12 +17,11 @@
 	<%-- <c:import url="/common/header.jsp"></c:import> --%>
 	<!-- HTML tag는 자동으로 contextpath인식못함 -->
 	<br>
-	<img src="${cpath}/images/healing.jpg" width="100" height="100"/>
+	<img src="${cpath}/resources/images/healing.jpg" width="100" height="100"/>
 	<h1>신규 직원 등록</h1>
 	<input type="button" onclick="location.href='${cpath}/emp/emplist.do'" value="돌아가기">
 	<br>
 	<hr>
-	<form id="myfrm" action="${cpath}/emp/empinsert.do" method="post">
 		<input type="hidden" name="job" value="update">
 		<fieldset>
 			<label>직원번호: </label>

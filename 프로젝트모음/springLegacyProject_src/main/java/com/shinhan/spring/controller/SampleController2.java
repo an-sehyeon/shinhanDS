@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.shinhan.spring.model.DeptDTO;
-import com.shinhan.spring.model.DeptService;
+import com.shinhan.spring.model.dept.DeptDTO;
+import com.shinhan.spring.model.dept.DeptService;
 
 // parameter ¿¬½À
 

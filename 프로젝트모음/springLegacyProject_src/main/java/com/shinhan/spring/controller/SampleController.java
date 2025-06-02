@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.shinhan.spring.model.DeptService;
+import com.shinhan.spring.model.dept.DeptService;
 
 
 // 요청 주소 연습
