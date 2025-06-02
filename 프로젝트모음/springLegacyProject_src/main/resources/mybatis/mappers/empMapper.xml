@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and salary >= #{salary}
 	and hire_date >= #{hire_date}
 	and department_id in
-		<foreach collection="deptid" item="aa" open="()" close=")" separator=",">
+		<foreach collection="deptid" item="aa" open="(" close=")" separator=",">
 			#{aa}
 		</foreach>
 		order by 1 asc
