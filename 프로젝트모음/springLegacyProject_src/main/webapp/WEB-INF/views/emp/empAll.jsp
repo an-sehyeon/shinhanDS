@@ -7,86 +7,19 @@
 <meta charset="UTF-8">
 <title>직원조회</title>
 <%@ include file="../common/header.jsp"%>
-
-
 <link rel="stylesheet" href="${cpath}/resources/css/empAll.css">
 <script src="${cpath}/resources/js/empAll.js"></script>
+<script src="${cpath}/resources/js/empAll2.js"></script>
+
 <script>
-	var message = "${resultMessage}";
+	var message = "${resultMessage}";		// EL(서버가 해석)
 	if(message!=""){
 		alert(message);
 	}
 	// load된 후 조회버튼 누르기
 	$("#dept_job").trigger("click");
-	
 </script>
-<script>
-$(()=>{
-	// ()=> {} 화살표함수에서 this는 window, bind()함수로 object를 bind()하여 this설정가능
-	$("#search").on("keyup",function(){
-		var inputData = $(this).val();
-		console.log(inputData);
-		$("tbody tr").hide();
-		$(`td:contains(\${inputData})`).parent().show();		// <tr><td>aa</td></tr>
-	});
-	
-	
-});
-</script>
-<script>
-$(function(){
-	
-	$("#dept_job").on("click",function(){
-		const select = document.getElementById("deptid");
-		const selectedValues = Array.from(select.selectedOptions)
-								.map(option => option.value);
-		
-		var jobid =$("#jobid").val();
-		var salary = $("#salary").val();
-		var hire_date = $("#hire_date").val();
-		var jsonData = {"deptid":$(select).val(),
-				  "jobid":jobid,
-				  "salary":salary,
-				  "hire_date":hire_date
-				  };
-		console.log(jsonData);
-		$.ajax({
-			url:"/spring/emp/selectByCondition.do",
-			contentType: "application/json",
-			type:"post",
-			data: JSON.stringify(jsonData),
-			success:function(response){
-				$("#here").html(response);
-			}
-		}); 
-	});
-	
-	/*$("#deptid").on("change", function(){
-		var deptid = $(this).val();
-		$.ajax({
-			url:"selectByDept.do",
-			data:{"deptid":deptid},
-			success:function(response){
-				$("#here").html(response);
-			}
-		});
-	});
-});
 
-
-$(function(){
-	$("#jobid").on("change", function(){
-		var jobid = $(this).val();
-		$.ajax({
-			url:"selectByJob.do",
-			data:{"jobid":jobid},
-			success:function(response){
-				$("#here").html(response);
-			}
-		});
-	});*/
-});
-</script>
 <style>
 h1 {
 	text-align: center;
@@ -140,25 +73,126 @@ tbody tr:nth-child(2n+1) {
 	color: black;
 }
 </style>
+<script>
+	$(function(){
+		$("#btnSelect").on("click",f_selectAll);
+		$("#btnDetail").on("click",f_selectById);
+		$("#btnInsert").on("click",f_insert);
+		$("#btnUpdate").on("click",f_update);
+		$("#btnDelete").on("click",f_delete);
+	});
+	
+	var obj = {
+			"employee_id": 1,
+	        "first_name": "테스트",
+	        "last_name": "TT",
+	        "email": "SKING3",
+	        "phone_number": "515.123.4567",
+	        "hire_date": 1055775600000,
+	        "job_id": "AD_PRES",
+	        "salary": 24000.0,
+	        "commission_pct": null,
+	        "manager_id": null,
+	        "department_id": 60
+	};
+	
+	function f_delete(){
+		console.log("f_delete--구현");
+		var empid = $("#empid").val();
+		$.ajax({
+			url:`${cpath}/emp/api/empdelete.do/\${empid}`,
+			type:"delete",
+			contentType:"application/json;charset=utf-8",
+			success: function(response){
+				console.log(response);
+			}
+		});
+	}
+	
+	function f_update(){
+		console.log("f_update--구현");
+		
+		$.ajax({
+			url:"${cpath}/emp/api/empupdate.do",
+			type:"put",
+			data: JSON.stringify(obj),
+			contentType:"application/json;charset=utf-8",
+			success: function(response){
+				console.log(response);
+			}
+		});
+	}
+	
+	function f_insert(){
+		console.log("f_insert--구현");
+
+		$.ajax({
+			url:"${cpath}/emp/api/empinsert.do",
+			type:"post",
+			data: JSON.stringify(obj),
+			contentType:"application/json;charset=utf-8",
+			success: function(response){
+				console.log(response);
+			}
+		});
+	}
+	
+	function f_selectAll(){
+		console.log("f_selectAll--구현");
+		$.ajax({
+			url:"${cpath}/emp/api/emplist.do",
+			success: function(response){
+				console.log(response);
+			}
+		});
+	}
+
+	function f_selectById(){
+		console.log("f_selectById--구현");
+		var empid = $("#empid").val();
+		$.ajax({
+			url:`${cpath}/emp/api/empdetail.do/\${empid}`,
+			success: function(response){
+				console.log(response);
+			}
+		});
+	}
+	
+	
+</script>
 </head>
 <body>
 
 	<div id="container">
+		<h3>Restful API사용하기</h3>
+	 	<button id="btnSelect" class="btn btn-secondary">전체조회</button>
+	 	<input type="number" id="empid" value="100">
+	 	<button id="btnDetail" class="btn btn-secondary">상세보기</button>
+	 	<button id="btnInsert" class="btn btn-secondary">입력</button>
+	 	<button id="btnUpdate" class="btn btn-secondary">수정</button>
+	 	<button id="btnDelete" class="btn btn-secondary">삭제</button>
+	 	<hr>
+	
+	
 		<h1 class="title">직원목록</h1>
 		<a class="btn btn-success" href="${cpath}/emp/empinsert.do">신규직원등록</a>
 		<hr>
-		부서로조회: <select id="deptid" multiple="multiple">
+		부서로조회: 
+		<select id="deptid" multiple="multiple">
+			<option value="0" selected="selected">부서전체</option>
 			<c:forEach items="${deptlist}" var="dept">
 				<option value="${dept.department_id}"
-					${dept.department_id==50?"selected":""}>
+					${dept.department_id}>
 					${dept.department_id}-${dept.department_name}</option>
 			</c:forEach>
 		</select> 직책으로조회: <select id="jobid">
+			<option value="all" selected="selected">직책전체</option>
 			<c:forEach items="${joblist}" var="job">
-				<option ${job.jobId=="ST_CLERK"?"selected":""}>${job.jobId}</option>
+				<option>${job.jobId}</option>
 			</c:forEach>
 		</select> 급여조회(이상):<input type="number" id="salary" value="1000">
 		입사일(이상) :<input type="date" id="hire_date" value="2000-01-01">
+		<input type="checkbox" id="date_check"/>
 		<button id="dept_job">조건조회</button>
 
 

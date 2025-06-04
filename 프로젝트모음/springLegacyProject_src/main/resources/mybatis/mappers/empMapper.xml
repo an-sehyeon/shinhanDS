@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from employees order by employee_id asc
 </select>
 
-<select id="selectById" parameterType="int" resultType="deptDTO">
+<select id="selectById" parameterType="int" resultType="empDTO">
 	select * from employees where employee_id =#{aa}
 </select>
 
@@ -37,16 +37,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and department_id = #{deptid}
 </select>
 
-<select id="selectByCondition" parameterType="com.shinhan.spring.model.emp.EmpRequestDTO" resultType="empDTO">
+<!-- 동적SQL문장
+dept_id in (0)이라면 SQL문을 제거하는 것이 바람직 
+ -->
+<select id="selectByCondition" 
+	parameterType="com.shinhan.spring.model.emp.EmpRequestDTO" resultType="empDTO">
 	select *
 	from employees
-	where job_id like #{jobid}
-	and salary >= #{salary}
-	and hire_date >= #{hire_date}
+	where salary >= #{salary}
+	
+	<if test="jobid != 'all'">
+		and job_id = #{jobid}
+	</if>
+	
+	<!-- 
+	true이면 ALL이므로 조건없음
+	false이면 일자 조건조회
+	 -->
+	<if test="date_check == 'false'">
+		and hire_date >= #{hire_date}
+	</if>
+	
+	<if test="deptid[0]!=0">
 	and department_id in
-		<foreach collection="deptid" item="aa" open="(" close=")" separator=",">
+	<foreach collection="deptid" item="aa" open="(" close=")" separator=",">
 			#{aa}
 		</foreach>
+	</if>
 		order by 1 asc
 </select>
 
@@ -55,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					EMPLOYEE_ID,
 					FIRST_NAME,     
 					LAST_NAME,    
-					E MAIL,       
+					EMAIL,       
 					PHONE_NUMBER,  
 					HIRE_DATE,  
 					JOB_ID,       
@@ -67,14 +84,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					#{employee_id},
 					#{first_name},     
 					#{last_name},    
-					#{e mail},       
+					#{email},       
 					#{phone_number},  
 					#{hire_date},  
 					#{job_id},       
 					#{salary},      
 					#{commission_pct}, 
 					#{manager_id},   
-					#{department_id)}
+					#{department_id}
 				)
 </insert>
 
@@ -90,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		COMMISSION_PCT=#{commission_pct},
 		MANAGER_ID=#{manager_id},
 		DEPARTMENT_ID=#{department_id}
-	where employee_id = #{empid}	
+	where employee_id = #{employee_id}	
 </select>
 
 <select id="delete" parameterType="int" >

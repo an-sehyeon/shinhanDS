@@ -3,9 +3,6 @@ package com.shinhan.spring.model.emp;
 import java.util.List;
 
 
-
-
-
 public interface EmpDAOInterface {
 
 	// Stored Procedure를 실행하기 (직원번호를 받아서 이메일과 급여를 return)

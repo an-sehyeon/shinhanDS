@@ -14,4 +14,5 @@ public class EmpRequestDTO {
 	String jobid;
 	int salary;
 	String hire_date;
+	String date_check;
 }

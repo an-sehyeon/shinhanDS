@@ -21,6 +21,9 @@ public class ExceptionAdvice {
 		System.out.println("예외가 발생한 class 이름 : " + ex.getClass().getName());
 		model.addAttribute("errorMessage", ex.getMessage());
 		model.addAttribute("url",request.getRequestURL());
+		
+		ex.printStackTrace();
+		
 		return "error/error500";
 	}
 	

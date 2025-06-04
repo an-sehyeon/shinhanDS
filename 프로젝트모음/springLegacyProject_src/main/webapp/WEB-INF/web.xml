@@ -18,16 +18,25 @@
   </filter-mapping>
   
   
+  <!-- Application당 하나의 ServletContext의 파라메터
+  모든 context에서 공유 가능하다.
+    -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
-		/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/root-context-tx.xml
 		/WEB-INF/spring/root-context-oracle.xml
 		</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
+  <!-- DispatcherServlet : FrontController이다.
+  servlet-context.xml에서만 사용되어진다.
+  ViewResolver, Interceptor, MultipartResolver객체를 생성하고
+  웹과 관련된 어노테이션 Controller,RestController를 스캔한다.
+   -->
   <servlet>
     <servlet-name>appServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -35,16 +44,18 @@
       <param-name>contextConfigLocation</param-name>
       <param-value>
 			/WEB-INF/spring/appServlet/servlet-context.xml
+			/WEB-INF/spring/appServlet/servlet-context-no.xml
 			</param-value>
     </init-param>
     
-    <!--  -->
+    <!-- 예외에 대한 처리가 되어있는 Handler가 없다면 예외를 강제로 발생-->
     <init-param>
       <param-name>throwExceptionIfNoHandlerFound</param-name>
       <param-value>true</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
   <servlet-mapping>
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/</url-pattern>

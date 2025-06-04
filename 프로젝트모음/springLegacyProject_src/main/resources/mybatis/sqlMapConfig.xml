@@ -6,6 +6,7 @@
   
   	<settings>
 	 <setting name="logImpl" value="LOG4J"/>
+	 <!-- 칼럼의 값이 null이오면 mybatis에서 칼럼의 타입으로 null처리 -->
 	 <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	

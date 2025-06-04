@@ -3,14 +3,52 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		
+		
+		<context:component-scan base-package="com.shinhan.spring.model"></context:component-scan>
+		
+		<!-- 트랜잭션 처리를 위해 추가-->
+		<bean id="transactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource2"></property>
+		</bean>
+			<tx:annotation-driven
+				transaction-manager="transactionManager" />
+				
+		<!-- 
+		어떤 메서드에 트랜잭션을 어떻게 적용할지 설정
+		transaction적용범위 지정 (advice) 
+		-->		
+		<tx:advice id="txAdvice"  transaction-manager="transactionManager">
+		<tx:attributes>
+		 	<tx:method name="*" /> <!--메서드별로 제약조건 별도설정 가능 -->
+		</tx:attributes>
+		</tx:advice>
+		
+		<!-- 
+		 어떤 메서드에 위 트랜잭션 로직을 적용할지 지정
+		 transaction pointcut지정 
+		 -->
+		<aop:config>
+		    <aop:advisor advice-ref="txAdvice" pointcut="execution(* aa(..))" />
+		</aop:config>	
+		
+		<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 		
 		
 		
-	<!-- @Component 스캔 @Repository @Service @Controller -->	
-	<context:component-scan base-package="com.shinhan.spring" />	
+	<!--
+	 @Controller : servlet-context.xml에서 component-scan
+	 @Component 스캔 @Repository @Service @Controller  : root-context.xml에서 component-scan
+	 -->	
+	<context:component-scan base-package="com.shinhan.spring.controller,net.firstzone.app" />	
 		
 		
 		

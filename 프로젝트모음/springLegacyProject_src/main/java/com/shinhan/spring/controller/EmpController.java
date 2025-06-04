@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -31,6 +32,14 @@ public class EmpController {
 	@Autowired EmpService empService;
 	@Autowired DeptService deptService;
 	@Autowired JobDAO jobDAO;
+	
+	
+	// @ResponseBody 생략시 무조건 forward(페이지를 찾음)
+	@GetMapping("/getEmpById.do")
+	public @ResponseBody String f_empidChk(@RequestParam int empid) {
+		EmpDTO emp = empService.selectById(empid);
+		return emp==null?"0":"1";
+	}
 	
 	@GetMapping("/emplist.do")
 	public String selectAll(Model model, HttpServletRequest request) {
@@ -52,7 +61,7 @@ public class EmpController {
 		System.out.println(data);
 		
 		Integer[] deptArr = data.getDeptid();
-		model.addAttribute("emplist",empService.selectByCondition(deptArr, data.getJobid(),  data.getSalary(),  data.getHire_date()));
+		model.addAttribute("emplist",empService.selectByCondition(deptArr, data.getJobid(),  data.getSalary(),  data.getHire_date(), data.getDate_check()));
 		// 0. 윗부분 : json받기(문자).."{   }"
 		// 1. JSON을 Object로 바꾼다. (parse)
 		// 2. 해당 data추출한다.

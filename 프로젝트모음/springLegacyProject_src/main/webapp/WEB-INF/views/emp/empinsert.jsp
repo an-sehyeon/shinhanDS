@@ -76,11 +76,10 @@
 	 
 	 $("input[name='employee_id']").on("change",function(){
 		 var input_empid = $(this).val();
-		 
 		 $.ajax({
 			url:"getEmpById.do?empid=" + input_empid,
 			success: function(response){
-				// response = 0이면 없음(가능), -1이면 있음(불가능)
+				// response = 0이면 없음(가능), 1이면 있음(불가능)
 				if(response==0){
 					$("#here").html("가능한 아이디입니다.");
 					$("#here").css("color","blue");

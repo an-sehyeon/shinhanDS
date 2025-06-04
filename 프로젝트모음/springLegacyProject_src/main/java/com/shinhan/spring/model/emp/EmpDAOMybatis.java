@@ -45,13 +45,20 @@ public class EmpDAOMybatis implements EmpDAOInterface{
 		return result;
 	}
 
+	// interface가 구현되어있으므로 반드시 구현한다.
 	@Override
 	public List<EmpDTO> selectByCondition(Integer[] arr, String jobid, int salary, String hdate) {
+		return null;
+	}
+	
+	
+	public List<EmpDTO> selectByCondition(Integer[] arr, String jobid, int salary, String hdate, String date_check) {
 		EmpRequestDTO dto = EmpRequestDTO.builder()
 				.deptid(arr)
 				.jobid(jobid)
 				.salary(salary)
 				.hire_date(hdate)
+				.date_check(date_check)
 				.build();
 		List<EmpDTO> emplist = sqlSession.selectList(namespace + "selectByCondition", dto);
 		log.info(emplist.size() + "건 조회");
@@ -85,7 +92,7 @@ public class EmpDAOMybatis implements EmpDAOInterface{
 	@Override
 	public EmpDTO selectById(int empid) {
 		EmpDTO emp = sqlSession.selectOne(namespace + "selectById", empid);
-		log.info(emp.toString());
+		log.info(emp!=null?emp.toString():"1");
 		return emp;
 	}
 
