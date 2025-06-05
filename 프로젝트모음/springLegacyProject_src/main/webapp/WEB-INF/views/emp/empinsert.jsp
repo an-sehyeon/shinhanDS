@@ -8,11 +8,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+
+$(function(){
+	$("#btnInsert").on("click",f_insert);
+});
+
+function f_insert(){
+	console.log("f_insert--구현");
+	var obj = { };
+	var arr = $("#myfrm").serializeArray();
+	$.each(arr,function(index,item){
+		obj[item.name] = item.value;
+	});
+	console.log(obj);
+
+
+	$.ajax({
+				url : `${cpath}/emp/api/empinsert.do`,
+				type : "post",
+				data : JSON.stringify(obj),
+				contentType : "application/json;charset=utf-8",
+				success : function(response) {
+					console.log(response);
+				}
+			}); 
+		}
+</script>
 <style type="text/css">
 	#emp_id_input { background-color: #E1F6FA }
 </style>
 </head>
 <body>
+	
+	<button class="btn btn-primary"  id="btnInsert">입력(JSON이용)</button>
+
 	<!-- 동적자원, 각각의 jsp를 컴파일후에 함친다. JSTL은 자동으로 contextpath인식 -->
 	<%-- <c:import url="/common/header.jsp"></c:import> --%>
 	<!-- HTML tag는 자동으로 contextpath인식못함 -->
@@ -22,6 +52,7 @@
 	<input type="button" onclick="location.href='${cpath}/emp/emplist.do'" value="돌아가기">
 	<br>
 	<hr>
+		<form id="myfrm">
 		<input type="hidden" name="job" value="update">
 		<fieldset>
 			<label>직원번호: </label>
@@ -33,13 +64,8 @@
 			<label>급여: </label><input type="number" name="salary"><br>
 			<label>커미션: </label><input type="number" name="commission_pct"><br>
 			<label>매니저:</label>
-			<select name="manager_id">
-				<c:forEach items="${managerId}" var="mid">
-					<option value="${mid}">
-						${mid}
-					</option>
-				</c:forEach>
-			</select><br>
+				<input name="manager_id" >
+			<br>
 			<label>전화번호: </label><input name="phone_number"><br>
 			<label>부서: </label>
 			<select name="department_id">

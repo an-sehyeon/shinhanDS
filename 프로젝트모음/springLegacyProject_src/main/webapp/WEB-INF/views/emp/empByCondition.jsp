@@ -38,7 +38,7 @@
 							🗑					
 						</c:if>
 						<c:if test="${status.index%2==1}">
-							❤️					
+							✅					
 						</c:if>
 					</a>
 					</td>

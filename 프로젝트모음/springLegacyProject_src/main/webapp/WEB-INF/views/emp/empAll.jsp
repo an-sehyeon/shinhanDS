@@ -74,6 +74,7 @@ tbody tr:nth-child(2n+1) {
 }
 </style>
 <script>
+	var cpath = "${cpath}";
 	$(function(){
 		$("#btnSelect").on("click",f_selectAll);
 		$("#btnDetail").on("click",f_selectById);
@@ -82,84 +83,8 @@ tbody tr:nth-child(2n+1) {
 		$("#btnDelete").on("click",f_delete);
 	});
 	
-	var obj = {
-			"employee_id": 1,
-	        "first_name": "테스트",
-	        "last_name": "TT",
-	        "email": "SKING3",
-	        "phone_number": "515.123.4567",
-	        "hire_date": 1055775600000,
-	        "job_id": "AD_PRES",
-	        "salary": 24000.0,
-	        "commission_pct": null,
-	        "manager_id": null,
-	        "department_id": 60
-	};
-	
-	function f_delete(){
-		console.log("f_delete--구현");
-		var empid = $("#empid").val();
-		$.ajax({
-			url:`${cpath}/emp/api/empdelete.do/\${empid}`,
-			type:"delete",
-			contentType:"application/json;charset=utf-8",
-			success: function(response){
-				console.log(response);
-			}
-		});
-	}
-	
-	function f_update(){
-		console.log("f_update--구현");
-		
-		$.ajax({
-			url:"${cpath}/emp/api/empupdate.do",
-			type:"put",
-			data: JSON.stringify(obj),
-			contentType:"application/json;charset=utf-8",
-			success: function(response){
-				console.log(response);
-			}
-		});
-	}
-	
-	function f_insert(){
-		console.log("f_insert--구현");
-
-		$.ajax({
-			url:"${cpath}/emp/api/empinsert.do",
-			type:"post",
-			data: JSON.stringify(obj),
-			contentType:"application/json;charset=utf-8",
-			success: function(response){
-				console.log(response);
-			}
-		});
-	}
-	
-	function f_selectAll(){
-		console.log("f_selectAll--구현");
-		$.ajax({
-			url:"${cpath}/emp/api/emplist.do",
-			success: function(response){
-				console.log(response);
-			}
-		});
-	}
-
-	function f_selectById(){
-		console.log("f_selectById--구현");
-		var empid = $("#empid").val();
-		$.ajax({
-			url:`${cpath}/emp/api/empdetail.do/\${empid}`,
-			success: function(response){
-				console.log(response);
-			}
-		});
-	}
-	
-	
 </script>
+<script src="${cpath}/resources/js/empAll_json.js"></script>
 </head>
 <body>
 
@@ -245,7 +170,7 @@ tbody tr:nth-child(2n+1) {
 						<td>${emp.last_name}</td>
 						<td>${emp.email}</td>
 						<td>${emp.phone_number}</td>
-						<td><fmt:formatDate pattern="yyyy-mm-dd hh:mm:ss"
+						<td><fmt:formatDate pattern="yyyy-mm-dd "
 								value="${emp.hire_date}" /></td>
 						<td>${emp.job_id}</td>
 						<td><fmt:formatNumber type="currency" currencySymbol="$"
@@ -258,7 +183,7 @@ tbody tr:nth-child(2n+1) {
 									test="${status.index%2==0}">
 							🗑					
 						</c:if> <c:if test="${status.index%2==1}">
-							❤️					
+							✅					
 						</c:if>
 						</a></td>
 

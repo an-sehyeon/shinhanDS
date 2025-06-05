@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shinhan.spring.model.dept.DeptService;
 import com.shinhan.spring.model.emp.EmpDTO;
+import com.shinhan.spring.model.emp.EmpRequestDTO;
 import com.shinhan.spring.model.emp.EmpService;
+import com.shinhan.spring.model.job.JobService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,10 +75,18 @@ public class EmpRestController {
 		return empService.selectAll();
 	}
 	
-	
+	@Autowired
+	DeptService deptService;
+	@Autowired
+	JobService jobService;
 	@GetMapping(value="/empdetail.do/{empid}", produces ="application/json" )
-	public EmpDTO f2(@PathVariable("empid") int empid) {
-		return empService.selectById(empid);
+	public Map<String, Object> f2(@PathVariable("empid") int empid) {
+		Map<String, Object> mapData = new HashMap<>();
+		mapData.put("emp", empService.selectById(empid));
+		mapData.put("deptlist", deptService.selectAll());
+		mapData.put("joblist", jobService.getAllJobs());
+		
+		return mapData;
 	}
 
 	@GetMapping(value="/emp.do", produces = "text/plain;charset=utf-8")
