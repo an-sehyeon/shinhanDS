@@ -14,7 +14,7 @@ public class EmpService {
 	
 	@Autowired
 	@Qualifier("empMybatis")
-	EmpDAOMybatis empDAO;
+	EmpDAOInterface empDAO;
 	
 	public EmpDTO execure_sp(int empid) {
 		return empDAO.execure_sp(empid);

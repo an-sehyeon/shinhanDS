@@ -15,6 +15,9 @@ public interface EmpDAOInterface {
 	public int empDeleteById(int empid) ;
 	// deptArr(다중 조회),job, salary, hire_date로 조회
 	public List<EmpDTO> selectByCondition(Integer[] arr, String jobid, int salary, String hdate);
+
+	public List<EmpDTO> selectByCondition(Integer[] arr, String jobid, int salary, String hdate, String date_check);
+	
 	// job, dept으로 직원조회
 	public List<EmpDTO> selectByJobAndDept(String job, int dept);
 	// job으로 직원조회

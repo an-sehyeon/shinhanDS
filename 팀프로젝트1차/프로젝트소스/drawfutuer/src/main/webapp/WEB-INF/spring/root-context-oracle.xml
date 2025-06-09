@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	
+	<!-- sqlSession을 만들기 위한 환경 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource2"></property>
+		<property name="configLocation"
+		 value="classpath:mybatis/sqlMapConfig.xml" />
+		<property name="mapperLocations" 
+		value="classpath:mybatis/mappers/*.xml" />
+	</bean>
+	<!-- Mapper의 SQL구문을 실행할수있다.(SQL문은 session단위로 실행함) -->
+	<bean id="sqlSession"
+		 class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	       <property name="location" value="/WEB-INF/spring/oracleDB.properties"/>
+	       <property name="fileEncoding" value="UTF-8" />
+	 	</bean>
+
+
+
+		
+		
+		<bean id="dataSource2"
+			class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+			<constructor-arg ref="dataSourceOriginal" />
+			<property name="logFormatter">
+				<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+					<property name="loggingType" value="SINGLE_LINE"></property>
+					<property name="sqlPrefix" value="[ ------SQL문장------ ] "></property>
+				</bean>
+			</property>
+		</bean>
+	 	
+	
+		<!-- Spring jdbc를 이용해서 DB사용 -->
+		<!-- Connection Pooling : 미리 생성된 Connection을 얻어서 처리가능 -->
+		<!-- 같은 타입의 빈이 여려개인 경우 Autowired시 선택되는 빈이라면 primary="true" -->
+		 <bean id="dataSourceOriginal" 
+		 	primary="true"
+		 	class="org.apache.commons.dbcp2.BasicDataSource">
+			<property name="driverClassName" value="${oracle.driverClassName}"/>
+			<property name="url" value="${oracle.url}" />
+			<property name="username" value="${oracle.username}"/>
+			<property name="password" value="${oracle.pwd}"/>
+		</bean>
+		
+		
+		<!-- Spring jdbc를 이용해서 DB사용 -->
+		<!-- <bean id="dataSource2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="${oracle.driverClassName}"/>
+			<property name="url" value="${oracle.url}" />
+			<property name="username" value="${oracle.username}"/>
+			<property name="password" value="${oracle.pwd}"/>
+		</bean>  -->
+		
+</beans>

@@ -25,6 +25,15 @@ public class EmpDTO {
 	private Double salary;        
 	private Double commission_pct;  
 	private Integer manager_id;        
-	private Integer department_id; 
+	private Integer department_id;
+	
+	
+	public EmpDTO(Integer employee_id, String first_name, String last_name) {
+		this.employee_id = employee_id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+	} 
+	
+	
 
 }

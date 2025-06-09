@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.firstzone.emp">
+
+<!-- 이부분은 칼럼이름과 DTO filed이름이 다른 경우 resultMap 정의 -->
+<!-- <resultMap id="deptResult" type="deptDTO">
+       <result property="department_id" column="department_id" />
+       <result property="department_name" column="department_name" />
+       <result property="manager_id" column="manager_id" />
+       <result property="location_id" column="location_id" />
+</resultMap> -->
+
+
+
+<!-- Mybatis가 select결과를 읽어서 resultType 객체를 생성(기본생성자필수)하고 setting한다.(setter필수) -->
+<select id = "selectAll" resultType="empDTO">
+	select * from employees order by employee_id asc
+</select>
+
+<select id="selectById" parameterType="int" resultType="empDTO">
+	select * from employees where employee_id =#{aa}
+</select>
+
+<select id="selectByDept" parameterType="int" resultType="empDTO">
+	select * from employees where department_id = #{deptid}
+</select>
+
+<select id="selectByJob" parameterType="String" resultType="empDTO">
+	select * from employees where job_id = #{job}
+</select>
+
+<select id="selectByJobAndDept" parameterType="map" resultType="empDTO">
+	select * from employees 
+	where job_id = #{jobid}
+	and department_id = #{deptid}
+</select>
+
+<!-- 동적SQL문장
+dept_id in (0)이라면 SQL문을 제거하는 것이 바람직 
+ -->
+<select id="selectByCondition" 
+	parameterType="com.shinhan.spring.model.emp.EmpRequestDTO" resultType="empDTO">
+	select *
+	from employees
+	where salary >= #{salary}
+	
+	<if test="jobid != 'all'">
+		and job_id = #{jobid}
+	</if>
+	
+	<!-- 
+	true이면 ALL이므로 조건없음
+	false이면 일자 조건조회
+	 -->
+	<if test="date_check == 'false'">
+		and hire_date >= #{hire_date}
+	</if>
+	
+	<if test="deptid[0]!=0">
+	and department_id in
+	<foreach collection="deptid" item="aa" open="(" close=")" separator=",">
+			#{aa}
+		</foreach>
+	</if>
+		order by 1 asc
+</select>
+
+<insert id="insert" parameterType="empDTO">
+	insert into employees(
+					EMPLOYEE_ID,
+					FIRST_NAME,     
+					LAST_NAME,    
+					EMAIL,       
+					PHONE_NUMBER,  
+					HIRE_DATE,  
+					JOB_ID,       
+					SALARY,      
+					COMMISSION_PCT, 
+					MANAGER_ID,   
+					DEPARTMENT_ID)
+				values (
+					#{employee_id},
+					#{first_name},     
+					#{last_name},    
+					#{email},       
+					#{phone_number},  
+					#{hire_date},  
+					#{job_id},       
+					#{salary},      
+					#{commission_pct}, 
+					#{manager_id},   
+					#{department_id}
+				)
+</insert>
+
+<select id="update" parameterType="empDTO">
+	update employees set
+		FIRST_NAME=#{first_name},
+		Last_name=#{last_name},
+		EMAIL=#{email},
+		PHONE_NUMBER=#{phone_number},
+		HIRE_DATE=#{hire_date},
+		JOB_ID=#{job_id},
+		SALARY=#{salary},
+		COMMISSION_PCT=#{commission_pct},
+		MANAGER_ID=#{manager_id},
+		DEPARTMENT_ID=#{department_id}
+	where employee_id = #{employee_id}	
+</select>
+
+<select id="delete" parameterType="int" >
+	delete from employees where employee_id=#{empid}
+</select>
+
+</mapper>
