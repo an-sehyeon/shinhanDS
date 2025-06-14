@@ -1,5 +1,5 @@
 -- 1. 회원
-CREATE TABLE user_account (
+CREATE TABLE users (
     user_id    NUMBER PRIMARY KEY,
     user_email VARCHAR2(255) UNIQUE NOT NULL,
     user_name  VARCHAR2(100) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE store (
     store_detail VARCHAR2(400),
     store_url    VARCHAR2(100) NOT NULL UNIQUE,
     CONSTRAINT fk_store_user FOREIGN KEY ( seller_id )
-        REFERENCES user_account ( user_id )
+        REFERENCES users ( user_id )
 );
 
 -- 6. 판매자
@@ -51,7 +51,7 @@ CREATE TABLE seller (
     account_bank VARCHAR2(50) NOT NULL,
     profile_info VARCHAR2(1000),
     CONSTRAINT fk_seller_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id )
+        REFERENCES users ( user_id )
 );
 
 -- 7. 상품
@@ -97,7 +97,7 @@ CREATE TABLE orders (
     card_id      NUMBER NOT NULL,
     order_status VARCHAR2(30) DEFAULT 'ORDER_OK' NOT NULL CHECK ( order_status IN ( 'ORDER_OK', 'CONFIRM', 'REFUND', 'REFUND_OK' ) ),
     CONSTRAINT fk_ord_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id ),
+        REFERENCES users ( user_id ),
     CONSTRAINT fk_ord_addr FOREIGN KEY ( address_id )
         REFERENCES address ( address_id ),
     CONSTRAINT fk_ord_card FOREIGN KEY ( card_id )
@@ -146,7 +146,7 @@ CREATE TABLE question (
     question_title VARCHAR2(200) NOT NULL,
     question_text  CLOB NOT NULL,
     CONSTRAINT fk_q_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id )
+        REFERENCES users ( user_id )
 );
 
 -- 14. 주소
@@ -159,7 +159,7 @@ CREATE TABLE address (
     address_extra  VARCHAR2(500),
     address_check  NUMBER(1) NOT NULL CHECK ( address_check IN ( 0, 1 ) ),
     CONSTRAINT fk_addr_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id )
+        REFERENCES users ( user_id )
 );
 
 -- 15. 카드
@@ -171,7 +171,7 @@ CREATE TABLE card (
     card_token   VARCHAR2(255) NOT NULL,
     card_alias   VARCHAR2(100),
     CONSTRAINT fk_card_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id )
+        REFERENCES users ( user_id )
 );
 
 -- 16. 장바구니
@@ -181,7 +181,7 @@ CREATE TABLE cart (
     product_id  NUMBER NOT NULL,
     product_cnt NUMBER DEFAULT 0 NOT NULL,
     CONSTRAINT fk_cart_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id ),
+        REFERENCES users ( user_id ),
     CONSTRAINT fk_cart_product FOREIGN KEY ( product_id )
         REFERENCES product ( product_id )
 );
@@ -194,7 +194,7 @@ CREATE TABLE chatroom (
     CONSTRAINT fk_chat_store FOREIGN KEY ( store_id )
         REFERENCES store ( store_id ),
     CONSTRAINT fk_chat_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id )
+        REFERENCES users ( user_id )
 );
 
 -- 18. 채팅
@@ -216,7 +216,7 @@ CREATE TABLE report (
     report_title VARCHAR2(200) NOT NULL,
     report_text  CLOB NOT NULL,
     CONSTRAINT fk_report_user FOREIGN KEY ( user_id )
-        REFERENCES user_account ( user_id ),
+        REFERENCES users ( user_id ),
     CONSTRAINT fk_report_seller FOREIGN KEY ( seller_id )
         REFERENCES seller ( seller_id )
 );

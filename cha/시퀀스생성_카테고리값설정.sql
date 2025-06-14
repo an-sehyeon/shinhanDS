@@ -151,14 +151,14 @@ insert into type_category VALUES(seq_type_category_id.nextval, '식물공예');
 insert into type_category VALUES(seq_type_category_id.nextval, '양재공예');
 insert into type_category VALUES(seq_type_category_id.nextval, '기타');
 
--- 상의 카테고라 값
+-- 상위 카테고리 값
 insert into U_CATEGORY VALUES(seq_d_category_id.nextval, '패션잡화');
 insert into U_CATEGORY VALUES(seq_d_category_id.nextval, '인테리어 소품');
 insert into U_CATEGORY VALUES(seq_d_category_id.nextval, '악세서리');
 insert into U_CATEGORY VALUES(seq_d_category_id.nextval, '생활잡화');
 insert into U_CATEGORY VALUES(seq_d_category_id.nextval, '기타');
 
--- 하의 카테고리 값
+-- 하위 카테고리 값
 insert into D_CATEGORY VALUES(seq_u_category_id.nextval, 1,'상의');
 insert into D_CATEGORY VALUES(seq_u_category_id.nextval, 1,'하의');
 insert into D_CATEGORY VALUES(seq_u_category_id.nextval, 1,'가방');
