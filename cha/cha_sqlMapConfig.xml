@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  
+  	<settings>
+	 <setting name="logImpl" value="LOG4J"/>
+	 <!-- 칼럼의 값이 null이오면 mybatis에서 칼럼의 타입으로 null처리 -->
+	 <setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+     <typeAlias type="com.shinhan.spring.cha.chatroom.ChatroomDTO" alias="chatroomDTO"/>
+     <typeAlias type=" com.shinhan.spring.cha.chatting.ChattingDTO" alias="chattingDTO"/>
+     <typeAlias type="com.shinhan.spring.cha.d_category.D_categoryDTO" alias="d_categoryDTO"/>
+     <typeAlias type="com.shinhan.spring.cha.notice.Notice.DTO" alias="noticeDTO"/>
+     <typeAlias type="com.shinhan.spring.cha.seller.SellerDTO" alias="sellerDTO"/>
+     <typeAlias type="com.shinhan.spring.cha.store.StoreDTO" alias="storeDTO"/>
+     <typeAlias type="com.shinhan.spring.cha.type_category.Type_categoryDTO" alias="type_categoryDTO"/>
+     <typeAlias type="com.shinhan.spring.cha.u_category.U_categoryDTO" alias="u_categoryDTO"/>
+  </typeAliases>
+  
+  </configuration>
